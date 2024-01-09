@@ -35,7 +35,17 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="Index">Cart</a>
                             </li>
+
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="LoyaltyPoints" asp-action="Index">LoyaltyPoints</a>
+                                </li>
+                            }
+
+                            
                         }
+                       
                     </ul>
                 </div>
             </div>
