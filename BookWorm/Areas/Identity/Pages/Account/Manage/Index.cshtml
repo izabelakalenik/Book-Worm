@@ -25,7 +25,11 @@
                 <label asp-for="Input.Surname" class="form-label"></label>
                 <span asp-validation-for="Input.Surname" class="text-danger"></span>
             </div>
-
+            <div class="form-group">
+                <input asp-for="Input.BirthDate" class="form-control" placeholder="Please choose your birth date." />
+                <label asp-for="Input.BirthDate" class="control-label"></label>
+                <span asp-validation-for="Input.BirthDate" class="text-danger"></span>
+            </div>
             <div class="form-floating mb-3">
                 <input asp-for="Input.PhoneNumber" class="form-control" placeholder="Please enter your phone number."/>
                 <label asp-for="Input.PhoneNumber" class="form-label"></label>

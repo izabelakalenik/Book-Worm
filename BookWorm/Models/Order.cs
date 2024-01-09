@@ -25,6 +25,8 @@ namespace BookWorm.Models
         public string Address { get; set; }
         [System.ComponentModel.DataAnnotations.Required]
         public Payment Payment { get; set; }
+
+        [Range(0, int.MaxValue, ErrorMessage = "LoyaltyPoints cannot be less than zero")]
         public int LoyaltyPoints { get; set; }
         [NotMapped]
         public List<(Article, int)> OrderedItems { get; set; }

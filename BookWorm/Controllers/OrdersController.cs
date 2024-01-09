@@ -110,6 +110,37 @@ namespace BookWorm.Controllers
             return _context.Order.Any(e => e.Id == id);
         }
 
+
+public IActionResult OrdersHistory()
+{
+    string cartString = Request.Cookies["cart"];
+    Dictionary<int, int> cart;
+    if (cartString != null)
+    {
+        cart = JsonConvert.DeserializeObject<Dictionary<int, int>>(cartString);
+    }
+    else
+    {
+        cart = new Dictionary<int, int>();
+    }
+
+    var articles = _context.Article.ToList();
+    var orderedItems = new List<(string, decimal, IFormFile, int)>();
+
+    foreach (var item in cart)
+    {
+        var article = articles.FirstOrDefault(a => a.ArticleId == item.Key);
+
+        if (article != null)
+        {
+            orderedItems.Add((article.Name, article.Price, article.Image, item.Value));
+        }
+    }
+
+    return View(orderedItems);
+}
+
+
         public void SetCookie(string key, string value, int? numberOfDays = null)
         {
             CookieOptions option = new CookieOptions();

@@ -42,7 +42,11 @@ namespace BookWorm.Areas.Identity.Pages.Account.Manage
             [MaxLength(20, ErrorMessage = " To long surname, do not exceed {0}")]
             [Display(Name = "Surname")]
             public string Surname { get; set; }
-        
+
+            [DataType(DataType.DateTime)]
+            [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+            public DateTime BirthDate { get; set; }
+
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }

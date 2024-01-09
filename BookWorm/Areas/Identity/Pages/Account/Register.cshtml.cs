@@ -57,6 +57,12 @@ namespace BookWorm.Areas.Identity.Pages.Account
             [Display(Name = "Surname")]
             public string Surname { get; set; }
 
+
+            [DataType(DataType.DateTime)]
+            [Required]
+            [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
+            public DateTime BirthDate { get; set; }
+
             [Required]
             [EmailAddress]
             [Display(Name = "Email")]

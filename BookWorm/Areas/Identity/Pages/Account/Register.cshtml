@@ -28,6 +28,11 @@
                 <span asp-validation-for="Input.Surname" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <input asp-for="Input.BirthDate" class="form-control" placeholder="Please choose your birth date." />
+                <label asp-for="Input.BirthDate" class="control-label"></label>
+                <span asp-validation-for="Input.BirthDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Input.Password"></label>
                 <input asp-for="Input.Password" class="form-control" />
                 <span asp-validation-for="Input.Password" class="text-danger"></span>
