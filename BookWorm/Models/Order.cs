@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using BookWorm.Models;
+using Microsoft.Build.Framework;
 
 namespace BookWorm.Models
 {
@@ -12,12 +13,20 @@ namespace BookWorm.Models
     public class Order
     {
         public int Id { get; set; }
+        [System.ComponentModel.DataAnnotations.Required]
+        [MinLength(2, ErrorMessage = "To short name")]
+        [MaxLength(20, ErrorMessage = " To long name, do not exceed {0}")]
         public string Name { get; set; }
+        [System.ComponentModel.DataAnnotations.Required]
+        [MinLength(2, ErrorMessage = "To short name")]
+        [MaxLength(20, ErrorMessage = " To long name, do not exceed {0}")]
         public string Surname { get; set; }
+        [System.ComponentModel.DataAnnotations.Required]
         public string Address { get; set; }
+        [System.ComponentModel.DataAnnotations.Required]
         public Payment Payment { get; set; }
+        public int LoyaltyPoints { get; set; }
         [NotMapped]
-        // public int Loyalty_points { get; set; }
         public List<(Article, int)> OrderedItems { get; set; }
 
     }

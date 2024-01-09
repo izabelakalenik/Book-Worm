@@ -88,7 +88,7 @@ namespace BookWorm.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Surname,Address,Payment, OrderedItems")] Order order)
+        public async Task<IActionResult> Create([Bind("Id,Name,Surname,Address,Payment,LoyaltyPoints,OrderedItems")] Order order)
         {
 
 
