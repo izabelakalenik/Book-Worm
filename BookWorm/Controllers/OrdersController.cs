@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BookWorm.Data;
 using BookWorm.Models;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace BookWorm.Controllers
 {
-    [Authorize]
+ 
     [Authorize(Policy = "RestrictAdmin")]
     public class OrdersController : Controller
     {
@@ -35,6 +35,7 @@ namespace BookWorm.Controllers
 
             var order = await _context.Order
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (order == null)
             {
                 return NotFound();
@@ -90,8 +91,6 @@ namespace BookWorm.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Surname,Address,Payment,LoyaltyPoints,OrderedItems")] Order order)
         {
-
-
             if (ModelState.IsValid)
             {
                 string cartString = Request.Cookies["cart"];
@@ -105,7 +104,6 @@ namespace BookWorm.Controllers
             }
             return View(order);
         }
-
 
         private bool OrderExists(int id)
         {

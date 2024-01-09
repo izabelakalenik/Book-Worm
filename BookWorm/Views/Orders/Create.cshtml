@@ -32,11 +32,15 @@
                 <select asp-for="Payment" class="custom-select" asp-items="Html.GetEnumSelectList<BookWorm.Models.Payment>()"></select>
                 <span asp-validation-for="Payment" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="LoyaltyPoints" class="control-label"></label>
-                <input asp-for="LoyaltyPoints" class="form-control" />
-                <span asp-validation-for="LoyaltyPoints" class="text-danger"></span>
-            </div>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="form-group">
+                    <label asp-for="LoyaltyPoints" class="control-label"></label>
+                    <input asp-for="LoyaltyPoints" class="form-control"/>
+                    <span asp-validation-for="LoyaltyPoints" class="text-danger"></span>
+                </div>
+            }
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
