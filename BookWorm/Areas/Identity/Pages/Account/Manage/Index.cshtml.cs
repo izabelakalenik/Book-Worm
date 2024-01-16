@@ -93,8 +93,7 @@ namespace BookWorm.Areas.Identity.Pages.Account.Manage
             }
         
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-            var name = await _userManager.GetUserNameAsync(user);
-            var surname = await _userManager.GetUserNameAsync(user);
+            
         
             if (Input.PhoneNumber != phoneNumber)
             {

@@ -30,6 +30,6 @@ namespace BookWorm.Models
         public int LoyaltyPoints { get; set; }
         [NotMapped]
         public List<(Article, int)> OrderedItems { get; set; }
-
+        
     }
 }
