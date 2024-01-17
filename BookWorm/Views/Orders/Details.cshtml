@@ -33,6 +33,21 @@
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Payment)
-        </dd>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.LoyaltyPoints)
+            </dt>
+            <dd class="col-sm-10" id = "error">
+                @if (Model.LoyaltyPoints != 0)
+                {
+                    <span class="text-danger">Loyalty Points: You don't have enough loyalty points!</span>
+                }
+                else
+                {
+                    @Html.DisplayFor(model => model.LoyaltyPoints)
+                }
+            </dd>
+        }
     </dl>
 </div>

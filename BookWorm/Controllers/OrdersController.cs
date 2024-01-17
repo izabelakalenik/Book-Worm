@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BookWorm.Data;
 using BookWorm.Models;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace BookWorm.Controllers
 {
-    [Authorize]
+ 
     [Authorize(Policy = "RestrictAdmin")]
     public class OrdersController : Controller
     {
@@ -35,6 +35,7 @@ namespace BookWorm.Controllers
 
             var order = await _context.Order
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (order == null)
             {
                 return NotFound();
@@ -88,10 +89,8 @@ namespace BookWorm.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Surname,Address,Payment, OrderedItems")] Order order)
+        public async Task<IActionResult> Create([Bind("Id,Name,Surname,Address,Payment,LoyaltyPoints,OrderedItems")] Order order)
         {
-
-
             if (ModelState.IsValid)
             {
                 string cartString = Request.Cookies["cart"];
@@ -106,11 +105,41 @@ namespace BookWorm.Controllers
             return View(order);
         }
 
-
         private bool OrderExists(int id)
         {
             return _context.Order.Any(e => e.Id == id);
         }
+
+
+public IActionResult OrdersHistory()
+{
+    string cartString = Request.Cookies["cart"];
+    Dictionary<int, int> cart;
+    if (cartString != null)
+    {
+        cart = JsonConvert.DeserializeObject<Dictionary<int, int>>(cartString);
+    }
+    else
+    {
+        cart = new Dictionary<int, int>();
+    }
+
+    var articles = _context.Article.ToList();
+    var orderedItems = new List<(string, decimal, IFormFile, int)>();
+
+    foreach (var item in cart)
+    {
+        var article = articles.FirstOrDefault(a => a.ArticleId == item.Key);
+
+        if (article != null)
+        {
+            orderedItems.Add((article.Name, article.Price, article.Image, item.Value));
+        }
+    }
+
+    return View(orderedItems);
+}
+
 
         public void SetCookie(string key, string value, int? numberOfDays = null)
         {

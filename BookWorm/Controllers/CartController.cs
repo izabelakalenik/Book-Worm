@@ -152,7 +152,6 @@ namespace BookWorm.Controllers
             return Redirect("/cart/index");
         }
 
-        [Authorize]
         public IActionResult Order()
         {
             //return View(articlesQuantities);

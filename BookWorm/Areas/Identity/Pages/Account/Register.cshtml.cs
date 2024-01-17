@@ -46,6 +46,24 @@ namespace BookWorm.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
+            [MinLength(2, ErrorMessage = "To short name")]
+            [MaxLength(20, ErrorMessage = " To long name, do not exceed {0}")]
+            [Display(Name = "Name")]
+            public string Name { get; set; }
+
+            [Required]
+            [MinLength(2, ErrorMessage = "To short surname")]
+            [MaxLength(20, ErrorMessage = " To long surname, do not exceed {0}")]
+            [Display(Name = "Surname")]
+            public string Surname { get; set; }
+
+
+            [DataType(DataType.DateTime)]
+            [Required]
+            [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
+            public DateTime BirthDate { get; set; }
+
+            [Required]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
