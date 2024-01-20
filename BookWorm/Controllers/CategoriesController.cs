@@ -2,11 +2,12 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using BookWorm.Models;
 using System.IO;
-using BookWorm.Data;
 using Microsoft.AspNetCore.Hosting;
+using BookWorm.Data;
+using BookWorm.Models;
 using Microsoft.AspNetCore.Authorization;
+
 
 namespace BookWorm.Controllers
 {
@@ -14,7 +15,6 @@ namespace BookWorm.Controllers
     public class CategoriesController : Controller
     {
         private readonly IWebHostEnvironment _hostEnvironment;
-
         private readonly MyDbContext _context;
 
         public CategoriesController(MyDbContext context, IWebHostEnvironment hostEnvironment)
@@ -139,6 +139,7 @@ namespace BookWorm.Controllers
         }
 
         // POST: Categories/Delete/5
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
@@ -151,7 +152,7 @@ namespace BookWorm.Controllers
             }
             _context.Category.Remove(category);
             await _context.SaveChangesAsync();
-        
+
             return RedirectToAction(nameof(Index));
         }
 
